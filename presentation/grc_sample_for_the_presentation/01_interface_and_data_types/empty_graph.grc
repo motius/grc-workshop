@@ -1,0 +1,117 @@
+options:
+  parameters:
+    author: funki
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: "This is our Options block, \nthe first thing we touch in every new Flowgraph!\n\
+      \nPlease add a \"Title\" as well as an \"Author\" \nbefore looking into the\
+      \ other settings."
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: qt_gui
+    hier_block_src_path: '.:'
+    id: Blank_graph
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: This is a demo_graph
+    window_size: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: '32000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [216, 12.0]
+    rotation: 0
+    state: enabled
+- name: note_0
+  id: note
+  parameters:
+    alias: ''
+    comment: This is the canvas!
+    note: This is a demo note
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [408, 204.0]
+    rotation: 0
+    state: true
+- name: note_0_0
+  id: note
+  parameters:
+    alias: ''
+    comment: This is the Block-tree-panel
+    note: ->
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [824, 60.0]
+    rotation: 0
+    state: true
+- name: note_0_0_0
+  id: note
+  parameters:
+    alias: ''
+    comment: This is the Debug Area
+    note: 'Below '
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [424, 388.0]
+    rotation: 0
+    state: true
+- name: note_0_0_0_0
+  id: note
+  parameters:
+    alias: ''
+    comment: This is the Debug Area
+    note: Above
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [432, 20.0]
+    rotation: 0
+    state: true
+- name: note_0_0_0_0_0
+  id: note
+  parameters:
+    alias: ''
+    comment: This is the Debug Area
+    note: Check the "View"-settings
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [16, 212.0]
+    rotation: 0
+    state: true
+connections: []
+
+metadata:
+  file_format: 1

@@ -1,0 +1,288 @@
+options:
+  parameters:
+    author: JI
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: "This demo represents a very crued luigi pipeline \ndirectly implemented\
+      \ in a ePY GRC graph"
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: qt_gui
+    hier_block_src_path: '.:'
+    id: luigi_demo
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: luigi_demo
+    window_size: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: add_val
+  id: variable_qtgui_entry
+  parameters:
+    comment: "-> \tssimple demo for interaction \n\tbetween luigi and grc"
+    gui_hint: ''
+    label: add
+    type: real
+    value: '0.1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [592, 108.0]
+    rotation: 0
+    state: true
+- name: mult_val
+  id: variable_qtgui_entry
+  parameters:
+    comment: "Change this two vlaues \nin the GUI"
+    gui_hint: ''
+    label: mutl
+    type: real
+    value: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [464, 108.0]
+    rotation: 0
+    state: true
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: '32000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [184, 12]
+    rotation: 0
+    state: enabled
+- name: analog_sig_source_x_0
+  id: analog_sig_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    amp: '1'
+    comment: Basic cosine signal on which we will apply our pipeline
+    freq: '1000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset: '0'
+    phase: '0'
+    samp_rate: samp_rate
+    type: float
+    waveform: analog.GR_COS_WAVE
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [192, 196.0]
+    rotation: 0
+    state: enabled
+- name: epy_do_luigi
+  id: epy_block
+  parameters:
+    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
+      \ GRC will instantiate the first class it finds\nto get ports and parameters\
+      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
+      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
+      from gnuradio import gr\n\n\n\n\n\"\"\"All aspects related to supporting streaming\
+      \ luigi tasks.\n\"\"\"\nfrom abc import abstractmethod\nfrom luigi.task import\
+      \ flatten\nfrom luigi.util import requires\nimport luigi\n\n\n\nclass StreamMixin:\n\
+      \    \"\"\"Mixin for Luigi (d6tflow) tasks to support stream processing rather\
+      \ than batch.\"\"\"\n\n    def run(self):\n        \"\"\"Handles routing of\
+      \ input and output for batch processing\"\"\"\n        output = self._run(self.inputLoad())\n\
+      \        self.save(output)\n\n    @abstractmethod\n    def _run(self, input_data):\n\
+      \        pass\n\n\ndef stream(task, stream_inputs):\n    \"\"\"Calls Luigi task\
+      \ in stream format.\n\n    Parameters\n    ---\n    task : luigi.task\n    \
+      \    Root task to run\n    stream_inputs : dict\n        Dictionary of inputs\
+      \ meant to be used in place of entry points outputs. One key per entry\n   \
+      \     point, with key matching task class name.\n\n    Example\n    ---\n  \
+      \  > task = TaskProcess(\"blah\")\n    > d6tflow.preview(task)\n     ===== Luigi\
+      \ Execution Preview =====\n\n\n    \u2514\u2500--[TaskProcess-{'mode': 'blah'}\
+      \ (PENDING)]\n       |--[TaskLoadData- (PENDING)]\n       \u2514\u2500--[TaskReshape-\
+      \ (PENDING)]\n          \u2514\u2500--[TaskLoadData2- (PENDING)]\n\n     =====\
+      \ Luigi Execution Preview =====\n    > stream(task, {\"TaskLoadData\": np.ones(...),\
+      \ \"TaskLoadData2\": np.zeros(...)})\n    \"\"\"\n    deps = flatten(task.requires())\n\
+      \    if deps:\n        if not isinstance(task, StreamMixin):\n            raise\
+      \ TypeError(\n                f\"Tasks {task} has dependencies, to use in streaming,\"\
+      \n                \"it is expected to include StreamMixin.\"\n            )\n\
+      \n        # Step 1: recurse and call all dependencies\n        inputs = []\n\
+      \        for dep_task in deps:\n            inputs.append(stream(dep_task, stream_inputs))\n\
+      \n        # Handle single inputs\n        if len(inputs) == 1:\n           \
+      \ inputs = inputs[0]\n\n        return task._run(inputs)\n    return stream_inputs[task.task_family]\n\
+      \n\n\n'''Pipeline nodes\n'''\n\n'''\n        TaskInput\n            |\n    \
+      \  TaskAddToData\n            |\n        multData\n'''\nclass TaskInput(StreamMixin,\
+      \ luigi.Task):\n    \"\"\"Reshapes data\"\"\"\n\n    def _run(self, input_data):\n\
+      \        # split per frame\n        return input_data\n\n\n@requires(TaskInput)\
+      \                 #defines the requirements for this specific node\nclass TaskAddToData(StreamMixin,\
+      \ luigi.Task):\n    \"\"\"Add value to data\"\"\"\n    add_val = luigi.parameter.FloatParameter()\n\
+      \n    def _run(self, input_data):\n        # split per frame\n        return\
+      \ input_data + self.add_val\n\n\n@requires(TaskAddToData)\nclass multData(StreamMixin,\
+      \ luigi.Task):\n    \"\"\" Multiply val \"\"\"\n    multiply_val = luigi.parameter.FloatParameter()\n\
+      \n    def _run(self, input_data):\n        # split per frame\n        return\
+      \ input_data * self.multiply_val\n\n\n\n\n#Todo: create a \"Y\"-node\n'''\n\
+      TaskInput\n    |\nTaskAddToData   TaskInput\n    |          |\n     add_inputs\n\
+      '''\n\n\n@requires(TaskAddToData, TaskInput)\nclass add_inputs(StreamMixin,\
+      \ luigi.Task):\n    \"\"\" Multiply val \"\"\"\n\n    def _run(self, input_data):\n\
+      \        # split per frame\n        return input_data[0]+input_data [1]\n\n\n\
+      \n\n\n\"\"\"All aspects related to GNURADIO\n\"\"\"\n\nclass luigi_blk(gr.sync_block):\
+      \  # other base classes are basic_block, decim_block, interp_block\n    \"\"\
+      \"Embedded Python Block for Luigi-pipelines\"\"\"\n\n    def __init__(self,\
+      \ mult_var=1.0, add_var=1.0, luigi_model_path= '' ):  # only default arguments\
+      \ here\n        \"\"\" Arguments to this function show up as parameters in GRC\
+      \ \"\"\"\n        gr.sync_block.__init__(\n            self,\n            name='Embedded\
+      \ Python Block',   # will show up in GRC\n            in_sig=[np.single],\n\
+      \            out_sig=[np.single]\n        )\n\n        # if an attribute with\
+      \ the same name as a parameter is found,\n        # a callback is registered\
+      \ (properties work, too).\n        self.mult_var = mult_var\n        self.add_var\
+      \ = add_var\n\n\n    def work(self, input_items, output_items):\n        \"\"\
+      \" Example: multiply with constant \"\"\"\n\n        output_items[0][:] = self.apply_luigi(input_items[0]\
+      \ )\n\n        return len(output_items[0])\n\n\n\n\n    def apply_luigi(self,\
+      \ input_items):\n        \"\"\" This reprents the first test fo applying a luigi\
+      \ pipeline in GRC \"\"\"\n        #task = TaskAddToData( add_val=self.example_param\
+      \ )   #Calling a different node in the graph is also possible\n        task=\
+      \  multData( multiply_val= self.mult_var, add_val=self.add_var )\n\n       \
+      \ output = stream(task, {\"TaskInput\": input_items})\n        return (output)\n"
+    add_var: add_val
+    affinity: ''
+    alias: ''
+    comment: "This embeded Python block show how to do \nbasic pipeline setup with\
+      \ luigi"
+    luigi_model_path: ''''''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    mult_var: mult_val
+  states:
+    _io_cache: ('Embedded Python Block', 'luigi_blk', [('mult_var', '1.0'), ('add_var',
+      '1.0'), ('luigi_model_path', "''")], [('0', 'float', 1)], [('0', 'float', 1)],
+      'Embedded Python Block for Luigi-pipelines', ['add_var', 'mult_var'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [512, 332.0]
+    rotation: 0
+    state: enabled
+- name: qtgui_time_sink_x_1
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'True'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: "Time sink to represent in and output of \nour pipeline side-by-side"
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label1: Original
+    label10: Signal 10
+    label2: Postprocessed
+    label3: Signal 3
+    label4: Signal 4
+    label5: Signal 5
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '""'
+    nconnections: '2'
+    size: '100'
+    srate: samp_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: '2'
+    ymin: '-2'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [808, 196.0]
+    rotation: 0
+    state: true
+
+connections:
+- [analog_sig_source_x_0, '0', epy_do_luigi, '0']
+- [analog_sig_source_x_0, '0', qtgui_time_sink_x_1, '0']
+- [epy_do_luigi, '0', qtgui_time_sink_x_1, '1']
+
+metadata:
+  file_format: 1

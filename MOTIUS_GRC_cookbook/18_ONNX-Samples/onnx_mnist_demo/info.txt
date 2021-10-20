@@ -1,0 +1,28 @@
+Requirements:
+
+pip install onnx
+pip install onnxmltools
+pip install onnxruntime -> if this is not working https://github.com/microsoft/onnxruntime/issues/4196 try "brew install libomp"/ "sudo apt install libgomp1" after the onnxruntime(Mac/Linux)
+
+
+sdr gr-gnn
+https://mirrors.spacecruft.org/librespacefoundation/sdrmakerspace_gr-dnn
+
+#do the install:
+git clone https://gitlab.com/librespacefoundation/sdrmakerspace/gr-dnn
+cd gr-dnn
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+
+
+# in case of ubuntu, i had troubles pointing the system to the right python install
+supposedly "cmake -D .." does the trick
+
+open the flow graph demos:
+#Mnist demo
+https://gitlab.com/librespacefoundation/sdrmakerspace/gr-dnn/-/wikis/examples/MNIST-dataset
+#pluto demo:
+https://gitlab.com/librespacefoundation/sdrmakerspace/gr-dnn/-/wikis/examples/SDR-with-ADALM-PLUTO

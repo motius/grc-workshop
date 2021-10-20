@@ -1,0 +1,1073 @@
+options:
+  parameters:
+    author: JI
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: 'Some very usefull links:
+
+
+      -ePy-message block, paser:
+
+      https://wiki.gnuradio.org/index.php/Message_Passing
+
+      -ePy-message block message creation:
+
+      https://wiki.gnuradio.org/index.php/Embedded_Python_Block'
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: qt_gui
+    hier_block_src_path: '.:'
+    id: MSG_Debugging
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: MSG-Debugging
+    window_size: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: amplitude_range
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: Amplitude
+    min_len: '200'
+    orient: Qt.Horizontal
+    rangeType: int
+    start: '0'
+    step: '1'
+    stop: '20'
+    value: '2'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [112, 1716.0]
+    rotation: 0
+    state: enabled
+- name: fileOut_selector
+  id: variable_qtgui_chooser
+  parameters:
+    comment: ''
+    gui_hint: 'qt_gui_tabs@0: 2,0'
+    label: Enable file writing
+    label0: Enable
+    label1: Disable
+    label2: ''
+    label3: ''
+    label4: ''
+    labels: '[''disabled'', ''enabled'']'
+    num_opts: '2'
+    option0: '0'
+    option1: '1'
+    option2: '2'
+    option3: '3'
+    option4: '4'
+    options: '[1, 0]'
+    orient: Qt.QVBoxLayout
+    type: int
+    value: '0'
+    widget: combo_box
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [760, 432.0]
+    rotation: 0
+    state: disabled
+- name: fileOut_selector_0
+  id: variable_qtgui_chooser
+  parameters:
+    comment: ''
+    gui_hint: 'qt_gui_tabs@1: 3,0'
+    label: Enable file writing
+    label0: Enable
+    label1: Disable
+    label2: ''
+    label3: ''
+    label4: ''
+    labels: '[''disabled'', ''enabled'']'
+    num_opts: '2'
+    option0: '0'
+    option1: '1'
+    option2: '2'
+    option3: '3'
+    option4: '4'
+    options: '[1, 0]'
+    orient: Qt.QVBoxLayout
+    type: int
+    value: '1'
+    widget: combo_box
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [744, 960.0]
+    rotation: 0
+    state: disabled
+- name: index_for_debugging
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: Index of input
+    min_len: '200'
+    orient: Qt.Horizontal
+    rangeType: float
+    start: '0'
+    step: '1'
+    stop: '1000'
+    value: '0'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [360, 1668.0]
+    rotation: 0
+    state: enabled
+- name: numPoints
+  id: variable
+  parameters:
+    comment: ''
+    value: int(1024/4)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [632, 1400.0]
+    rotation: 0
+    state: enabled
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: 32000/8
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [184, 12]
+    rotation: 0
+    state: enabled
+- name: analog_sig_source_x_0_0_0_0_0_0_0
+  id: analog_sig_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    amp: amplitude_range
+    comment: ''
+    freq: '100'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset: '0'
+    phase: '0'
+    samp_rate: samp_rate
+    type: float
+    waveform: analog.GR_COS_WAVE
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [88, 1452.0]
+    rotation: 0
+    state: enabled
+- name: blocks_file_sink_0
+  id: blocks_file_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    append: 'True'
+    comment: This represents a (debug)message to file
+    file: file_out.txt
+    type: byte
+    unbuffered: 'True'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1120, 296.0]
+    rotation: 0
+    state: disabled
+- name: blocks_file_sink_0_0
+  id: blocks_file_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    append: 'True'
+    comment: This represents a (debug)message to file
+    file: msg_and_file_out.txt
+    type: byte
+    unbuffered: 'True'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1096, 848.0]
+    rotation: 0
+    state: disabled
+- name: blocks_null_sink_0
+  id: blocks_null_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    bus_structure_sink: '[[0,],]'
+    comment: ''
+    num_inputs: '1'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [616, 36.0]
+    rotation: 0
+    state: true
+- name: blocks_null_sink_0_1
+  id: blocks_null_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    bus_structure_sink: '[[0,],]'
+    comment: ''
+    num_inputs: '1'
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1176, 404.0]
+    rotation: 0
+    state: disabled
+- name: blocks_null_sink_0_1_0
+  id: blocks_null_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    bus_structure_sink: '[[0,],]'
+    comment: ''
+    num_inputs: '1'
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1160, 956.0]
+    rotation: 0
+    state: disabled
+- name: blocks_null_sink_1
+  id: blocks_null_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    bus_structure_sink: '[[0,],]'
+    comment: ''
+    num_inputs: '1'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [656, 1540.0]
+    rotation: 0
+    state: disabled
+- name: blocks_null_source_0
+  id: blocks_null_source
+  parameters:
+    affinity: ''
+    alias: ''
+    bus_structure_source: '[[0,],]'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_outputs: '1'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [328, 36.0]
+    rotation: 0
+    state: true
+- name: blocks_selector_0
+  id: blocks_selector
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    enabled: 'True'
+    input_index: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '1'
+    num_outputs: '2'
+    output_index: fileOut_selector
+    showports: 'True'
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [760, 300.0]
+    rotation: 0
+    state: disabled
+- name: blocks_selector_0_0
+  id: blocks_selector
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    enabled: 'True'
+    input_index: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '1'
+    num_outputs: '2'
+    output_index: fileOut_selector
+    showports: 'True'
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [744, 852.0]
+    rotation: 0
+    state: disabled
+- name: blocks_throttle_0
+  id: blocks_throttle
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    ignoretag: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samples_per_second: samp_rate
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [568, 308.0]
+    rotation: 0
+    state: disabled
+- name: blocks_throttle_0_0
+  id: blocks_throttle
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    ignoretag: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samples_per_second: samp_rate
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [600, 860.0]
+    rotation: 0
+    state: disabled
+- name: blocks_throttle_1
+  id: blocks_throttle
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    ignoretag: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samples_per_second: samp_rate
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [464, 36.0]
+    rotation: 0
+    state: true
+- name: blocks_vector_source_x_0
+  id: blocks_vector_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    repeat: 'True'
+    tags: '[]'
+    type: float
+    vector: (0.1, 0.3, 4,12)
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [96, 1600.0]
+    rotation: 0
+    state: true
+- name: epy_block_0
+  id: epy_block
+  parameters:
+    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
+      \ GRC will instantiate the first class it finds\nto get ports and parameters\
+      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
+      \ them are required to have default values!\n\n\nThis block specifically is\
+      \ based on the grc-\"embeded python block\"-tutorial founde here:\nhttps://wiki.gnuradio.org/index.php/Embedded_Python_Block\n\
+      \n\nIt is used to convert a message from a gui-edit-message-block to a byte\
+      \ string\n(that can the be written to a file)  -> see the picture in this folder\
+      \ for details\n\n\nsome more details on the polymorphic Types can be found here\
+      \ :\nhttps://wiki.gnuradio.org/index.php/Polymorphic_Types_(PMTs)\n\"\"\"\n\n\
+      import numpy as np\nfrom gnuradio import gr\nimport pmt\n\ntextboxValue = \"\
+      \"\n\n\nclass blk(gr.sync_block):  # other base classes are basic_block, decim_block,\
+      \ interp_block\n    \"\"\"Embedded Python Block example - a simple multiply\
+      \ const\"\"\"\n\n    \"\"\"\n        reads input from a message port\n     \
+      \   outputs text\n    \"\"\"\n    def __init__(self, example_param = 2):\n \
+      \       gr.sync_block.__init__(self,\n            name = \"Embedded Python demo\"\
+      ,\n            in_sig = None,\n            out_sig = [np.byte])\n\n        #\
+      \ register message ports\n        self.message_port_register_in(pmt.intern('msg_in'))\n\
+      \        self.message_port_register_out(pmt.intern('clear_input'))\n       \
+      \ self.set_msg_handler(pmt.intern('msg_in'), self.handle_msg) # this basically\
+      \ assigns the msg-handler\n\n        # assing input parameters\n        self.example_param\
+      \ = example_param\n\n\n    def handle_msg(self, msg):\n        global textboxValue\n\
+      \n        textboxValue = pmt.symbol_to_string (msg)\n        # print (textboxValue)\n\
+      \n        # String to output\n        # pmt_test = pmt.string_to_symbol(\"Test\"\
+      )    # convert string to pmt (polymorphic type)\n\n        # publish pmt-message\
+      \ over a port\n        # self.message_port_pub(pmt.intern('clear_input'), pmt_test\
+      \ )\n        # self.message_port_pub(pmt.intern('clear_input'), pmt.intern(''))\
+      \ # send '' to the clear_input-port (the output of our system)\n\n        print\
+      \ (textboxValue)\n\n\n    def work(self, input_items, output_items):\n     \
+      \   global textboxValue\n\n        # get length of string\n        _len = len(textboxValue)\n\
+      \        if (_len > 0):\n            # terminate with LF\n            textboxValue\
+      \ += \"\\n\"\n            _len += 1\n            # store elements in output\
+      \ array\n            for x in range(_len):\n                output_items[0][x]\
+      \ = ord(textboxValue[x])\n                \n            textboxValue = \"\"\n\
+      \            self.message_port_pub(pmt.intern('clear_input'), pmt.intern(''))\n\
+      \            return (_len)\n        else:\n            return (0)\n"
+    affinity: ''
+    alias: ''
+    comment: "This block is based on the following tutorial:\nhttps://wiki.gnuradio.org/index.php/Embedded_Python_Block\n\
+      \nIt is used as a piece of proto-code to create \"debug-messages\" \nthat is\
+      \ then represented in the QT-based GRC Message block"
+    example_param: '2'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    _io_cache: ('Embedded Python demo', 'blk', [('example_param', '2')], [('msg_in',
+      'message', 1)], [('0', 'byte', 1), ('clear_input', 'message', 1)], 'Embedded
+      Python Block example - a simple multiply const', ['example_param'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [168, 308.0]
+    rotation: 0
+    state: disabled
+- name: epy_block_0_0
+  id: epy_block
+  parameters:
+    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
+      \ GRC will instantiate the first class it finds\nto get ports and parameters\
+      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
+      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
+      from gnuradio import gr\n\nimport pmt\nfrom datetime import datetime  # needed\
+      \ for some message testing\n\n\nclass blk(gr.sync_block):  # other base classes\
+      \ are basic_block, decim_block, interp_block\n    \"\"\"Embedded Python Block\
+      \ example - a simple message passer\"\"\"\n\n    def __init__(self, input_dim\
+      \ = 1, index= 10 ):  # only default arguments here\n        \"\"\"arguments\
+      \ to this function show up as parameters in GRC\"\"\"\n        gr.sync_block.__init__(\n\
+      \            self,\n            name='ePy byte to message-passer-block',   #\
+      \ will show up in GRC\n            in_sig  = [ np.single , np.single],#  [ (np.single,\
+      \ input_dim ) ],\n            out_sig = [ np.single ]  # no output apart from\
+      \ the message-out\n        )\n        # Create output port\n        self.message_port_register_out(pmt.intern('pmt_msg_out'))\
+      \  # create a message out port\n        self.index = index\n\n    def work(self,\
+      \ input_items, output_items):\n        \"\"\"example: message passing in GRC\"\
+      \"\"\n\n    #--create msg from string\n        str_shape_value = str( len(input_items[0])\
+      \ )# .shape )\n        #prot_var_str_msg = pmt.intern ( str_shape_value )  \
+      \         #This seems to work for all types\n        #proto_const_str_msg =\
+      \ pmt.string_to_symbol( '65535 +4 ' )   # This is string specific\n\n    #--Message\
+      \ from real numbers\n        integer_value = max(input_items[0]) # get index\
+      \ -> #max (input_items[0]) )\n        #proto_long_msg =  pmt.intern( str( integer_value\
+      \ ) )         #for some reason, we can not directly display the info -> typcast\
+      \ to str.  | alternative:  long_msg =  pmt.from_long( integer_value ) #max (input_items[0])\
+      \ )\n\n        float_value = 1.7\n        #proto_float_msg =  pmt.intern( str(\
+      \ float_value) ) #max (input_items[0]) )\n\n\n    #--interacting with complex\
+      \ numbers in messages\n        complex_num = 1j\n        # complex_msg = pmt.from_complex(1j)\
+      \ #create a complex pmt  -> type(P2) = pmt.pmt_swig.swig_int_ptr\n        #\
+      \ bool_complex = complex_msg.is_complex(P2) # check if message is complex\n\
+      \        #is_comp_messag =  pmt.intern( bool_complex )\n\n    #--other types\n\
+      \        #P_true = pmt.PMT_T\n        #P_false = pmt.PMT_F\n        #P_nil =\
+      \ pmt.PMT_NIL\n\n    #--Message from arrays (in this case our input )\n    \
+      \    array = [42, 23, 23, 23, 223]\n        arrayIn = input_items[1]\n\n\n \
+      \       filename = \"/Applications/GNURadio-comp/projects/debug_test.txt\"\n\
+      \        #gr.logger_config(filename, watch_period)  # Configures the logger\
+      \ with conf file filename\n        #names = gr.logger_get_names()  # Returns\
+      \ the names of all loggers\n        #gr.logger_reset_config()   # Resets logger\
+      \ config by removing all appenders\n\n        #log=gr.logger(\"nameOfLogger\"\
+      )\n        #log.debug(\"Log a debug message\")\n        #log.set_level(\"INFO\"\
+      )\n\n\n        #for element in range( len(arrayIn) ):\n        #    message\
+      \ = pmt.intern( str(element) )\n        #    self.message_port_pub(pmt.intern('pmt_msg_out'),\
+      \  message )\n\n\n        #array= input_items[0][ 2:5 ]  #real world array\n\
+      \n        #type_msg = pmt.intern( str( type(array) )) # conversion to str works\
+      \  #array_msg = pmt.to_pmt([42, 23, 23, 23, 23]) #sample from the official website\
+      \ -> not working\n        #array_msg = pmt.intern (str(array)) # conversion\
+      \ of a real input array\n\n        #max_value = np.max(input_items[0])  index_max_value\
+      \ =  np.argmax(input_items[0]) len_value = len( input_items[0] )   dim= ( input_items[0]).shape\n\
+      \n    #--Time stamp testing\n        now = datetime.now()\n        current_time\
+      \ = now.strftime(\"%H:%M:%S.%fZ\")[:-6]  # warning if you go with higher time\
+      \ resolution than \"-3\", th programm crashes imidiatly\n        time_msg =\
+      \  pmt.intern(current_time)\n\n    #--Combination of different file type to\
+      \ a pmt-string-message\n        #packed_msg= pmt.intern(\"Val: %s, Shape: %s\
+      \ [TS: %s]\" %(str(array), str_shape_value, current_time) ) # + str(integer_value)\
+      \ + str(float_value) ) # str( type(input_items[0][:]) )\n        packed_msg=\
+      \ pmt.intern(\"Shape:%s_TS:%s_%s\" %( str(len(array) ) , current_time, str(arrayIn)\
+      \ ) ) # + str(integer_value) + str(float_value) ) # str( type(input_items[0][:])\
+      \ )\n\n\n\n    #--Send cyclic info on the input out via the msg-port\n     \
+      \   self.message_port_pub(pmt.intern('pmt_msg_out'),  packed_msg ) # looks like\
+      \ we can only print a pmt-STRING-message\n\n        output_items[0][:] = input_items[0]\
+      \ * 1# create output from inptu\n\n        return len(output_items[0])\n\n \
+      \   def quitting():\n        print(\"I lived and now i die!!!\")\n"
+    affinity: ''
+    alias: ''
+    comment: ''
+    index: index_for_debugging
+    input_dim: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    _io_cache: ('ePy byte to message-passer-block', 'blk', [('input_dim', '1'), ('index',
+      '10')], [('0', 'float', 1), ('1', 'float', 1)], [('0', 'float', 1), ('pmt_msg_out',
+      'message', 1)], 'Embedded Python Block example - a simple message passer', ['index'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [320, 1580.0]
+    rotation: 0
+    state: enabled
+- name: epy_block_0_0_0
+  id: epy_block
+  parameters:
+    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
+      \ GRC will instantiate the first class it finds\nto get ports and parameters\
+      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
+      \ them are required to have default values!\n\n\nThis python block represents\
+      \ pmt-message creation from different data-Types\nby using pmt-to-string and\
+      \ string-to-pmt casts\n\nThat for it mainly plays with the PMT-data type on\
+      \ which more can be found here :\nhttps://wiki.gnuradio.org/index.php/Polymorphic_Types_(PMTs)\n\
+      \n\n\"\"\"\n\nimport numpy as np\nfrom gnuradio import gr\nimport pmt\n\ntextboxValue\
+      \ = \"\"\n\n\nclass blk(gr.sync_block):  # other base classes are basic_block,\
+      \ decim_block, interp_block\n    \"\"\"Embedded Python Block example - pmt forwardning\
+      \ \"\"\"\n\n    \"\"\"\n        reads input from a message port\n        outputs\
+      \ text (cast from pmt to string)\n                and a message (cast back to\
+      \ pmt)\n    \"\"\"\n    def __init__(self, example_param = 2):\n        gr.sync_block.__init__(self,\n\
+      \            name = \"message conversion demo\",\n            in_sig = None,\
+      \ # [np.single], #byte, single or complex64\n            out_sig = [np.byte])\n\
+      \n        # register message ports\n        self.message_port_register_in(pmt.intern('msg_in'))\n\
+      \        self.message_port_register_out(pmt.intern('clear_input'))  # this port\
+      \ only sends '' when a message is recieved, interacting with the text box block\n\
+      \        self.message_port_register_out(pmt.intern('pmt_msg_out'))  # this represents\
+      \ our message out-port (format is pmt)\n\n        # this basically assigns the\
+      \ msg-handler for the 'msg_in'-port\n        self.set_msg_handler(pmt.intern('msg_in'),\
+      \ self.handle_msg)\n\n        # assing input parameters\n        self.example_param\
+      \ = example_param\n\n\n    def handle_msg(self, msg):\n        global textboxValue\n\
+      \n        textboxValue = pmt.symbol_to_string (msg)\n        print (textboxValue)\n\
+      \        print_out_str = 'message: '+ textboxValue\n        print  ( print_out_str,\
+      \ '( original message:',  msg, ' -> converted to str:', textboxValue, ')' )\n\
+      \        # String to output\n        #pmt_test = pmt.string_to_symbol(\"Test\"\
+      )                     # convert string to pmt (polymorphic type)\n        #self.message_port_pub(pmt.intern('pmt_msg_out'),\
+      \ pmt_test ) # publish pmt-message over a port\n\n        self.message_port_pub(pmt.intern('pmt_msg_out'),\
+      \  msg )# pmt.intern(print_out_str) )# pmt.intern( 'message received! ')   )\n\
+      \        #check if pmt concatinating is possible via +\n\n\n\n        # publish\
+      \ pmt-message over a port\n        # self.message_port_pub(pmt.intern('clear_input'),\
+      \ pmt_test )\n        # self.message_port_pub(pmt.intern('clear_input'), pmt.intern(''))\
+      \ # send '' to the clear_input-port (the output of our system)\n\n\n\n     \
+      \   # Basic PMT info can be found here: https://wiki.gnuradio.org/index.php/Guided_Tutorial_Programming_Topics\n\
+      \        #P_tuple = pmt.to_pmt((1, 2, 3, 'spam', 'eggs'))\n        #P_dict =\
+      \ pmt.to_pmt({'spam': 42, 'eggs': 23})\n\n\n\n    def work(self, input_items,\
+      \ output_items):\n        global textboxValue\n\n        # get length of string\n\
+      \        _len = len(textboxValue)\n        if (_len > 0):\n            # terminate\
+      \ with LF\n            textboxValue += \"\\n\"\n            _len += 1\n    \
+      \        # store elements in output array\n            for x in range(_len):\n\
+      \                output_items[0][x] = ord(textboxValue[x])\n            # print\n\
+      \            textboxValue = \"\"\n            self.message_port_pub(pmt.intern('clear_input'),\
+      \ pmt.intern(''))\n            return (_len)\n        else:\n            return\
+      \ (0)\n"
+    affinity: ''
+    alias: ''
+    comment: 'This block is based on the following tutorial:
+
+      https://wiki.gnuradio.org/index.php/Embedded_Python_Block
+
+
+      It is used as a piece of proto-code to create "debug-messages" that is then
+
+      represented in the QT-based GRC Message block'
+    example_param: '2'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    _io_cache: ('message conversion demo', 'blk', [('example_param', '2')], [('msg_in',
+      'message', 1)], [('0', 'byte', 1), ('pmt_msg_out', 'message', 1), ('clear_input',
+      'message', 1)], 'Embedded Python Block example - pmt forwardning ', ['example_param'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [296, 860.0]
+    rotation: 0
+    state: disabled
+- name: epy_block_1
+  id: epy_block
+  parameters:
+    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
+      \ GRC will instantiate the first class it finds\nto get ports and parameters\
+      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
+      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
+      from gnuradio import gr\n\n\nclass blk(gr.sync_block):  # other base classes\
+      \ are basic_block, decim_block, interp_block\n    \"\"\"Embedded Python Block\
+      \ example - a simple multiply const\"\"\"\n\n    def __init__(self, example_param=1.0):\
+      \  # only default arguments here\n        \"\"\"arguments to this function show\
+      \ up as parameters in GRC\"\"\"\n        gr.sync_block.__init__(\n         \
+      \   self,\n            name='Embedded Python Block',   # will show up in GRC\n\
+      \            in_sig=[np.complex64],\n            out_sig=[np.complex64]\n  \
+      \      )\n        # if an attribute with the same name as a parameter is found,\n\
+      \        # a callback is registered (properties work, too).\n        self.example_param\
+      \ = example_param\n\n    def work(self, input_items, output_items):\n      \
+      \  \"\"\"example: multiply with constant\"\"\"\n        output_items[0][:] =\
+      \ input_items[0] * self.example_param\n        return len(output_items[0])\n"
+    affinity: ''
+    alias: ''
+    comment: ''
+    example_param: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    _io_cache: ('Embedded Python Block', 'blk', [('example_param', '1.0')], [('0',
+      'complex', 1)], [('0', 'complex', 1)], 'Embedded Python Block example - a simple
+      multiply const', ['example_param'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [992, 1344.0]
+    rotation: 0
+    state: disabled
+- name: note_0
+  id: note
+  parameters:
+    alias: ''
+    comment: This is simple file writing demo-> enable or disbale the write to file
+      part
+    note: Simple file writing
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [104, 228.0]
+    rotation: 0
+    state: disabled
+- name: note_0_0_0
+  id: note
+  parameters:
+    alias: ''
+    comment: This is simple file writing demo-> enable or disbale the write to file
+      part
+    note: Simple message creation via casting
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [120, 764.0]
+    rotation: 0
+    state: true
+- name: qt_gui_tabs
+  id: qtgui_tab_widget
+  parameters:
+    alias: ''
+    comment: ''
+    gui_hint: 1,0
+    label0: Simple debug to file
+    label1: GUI- and file-debugging
+    label10: Tab 10
+    label11: Tab 11
+    label12: Tab 12
+    label13: Tab 13
+    label14: Tab 14
+    label15: Tab 15
+    label16: Tab 16
+    label17: Tab 17
+    label18: Tab 18
+    label19: Tab 19
+    label2: Last but least
+    label3: Tab 3
+    label4: Tab 4
+    label5: Tab 5
+    label6: Tab 6
+    label7: Tab 7
+    label8: Tab 8
+    label9: Tab 9
+    num_tabs: '3'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [800, 4.0]
+    rotation: 0
+    state: true
+- name: qtgui_edit_box_msg_0
+  id: qtgui_edit_box_msg
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gui_hint: 0,0
+    is_pair: 'False'
+    is_static: 'True'
+    key: ''
+    label: Passed message demo
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: string
+    value: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1040, 1652.0]
+    rotation: 0
+    state: enabled
+- name: qtgui_edit_box_msg_0_0_0
+  id: qtgui_edit_box_msg
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gui_hint: qt_gui_tabs@0:1,0
+    is_pair: 'False'
+    is_static: 'True'
+    key: input
+    label: Message to file (enable file interaction to save to files)
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: string
+    value: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [168, 460.0]
+    rotation: 180
+    state: disabled
+- name: qtgui_edit_box_msg_0_0_0_0_0
+  id: qtgui_edit_box_msg
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gui_hint: qt_gui_tabs@1:1,0
+    is_pair: 'False'
+    is_static: 'True'
+    key: input
+    label: Input message  (\n enable file interaction to save to files)
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: string
+    value: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [312, 1028.0]
+    rotation: 180
+    state: disabled
+- name: qtgui_edit_box_msg_0_0_0_0_0_0
+  id: qtgui_edit_box_msg
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gui_hint: 'qt_gui_tabs@1: 2,0'
+    is_pair: 'False'
+    is_static: 'True'
+    key: input
+    label: recieved debug-output
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: string
+    value: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1168, 1052.0]
+    rotation: 0
+    state: disabled
+- name: qtgui_edit_box_msg_0_0_0_0_0_0_0
+  id: qtgui_edit_box_msg
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gui_hint: 'qt_gui_tabs@1: 4,0'
+    is_pair: 'False'
+    is_static: 'True'
+    key: input
+    label: recieved debug-output
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    type: string
+    value: Test Val
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [736, 1132.0]
+    rotation: 0
+    state: disabled
+- name: qtgui_time_sink_x_0_0_0_0_1_0_0_0_0_0_0_0
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'True'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'False'
+    gui_hint: qt_gui_tabs@2
+    label1: Original
+    label10: Signal 10
+    label2: After Operation
+    label3: Signal 3
+    label4: Signal 4
+    label5: Signal 5
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: inputPython
+    nconnections: '1'
+    size: numPoints
+    srate: samp_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: '25'
+    ymin: '-25'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1072, 1464.0]
+    rotation: 0
+    state: enabled
+- name: qtgui_time_sink_x_0_0_0_0_1_0_0_1_0_0_0
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'True'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'False'
+    gui_hint: qt_gui_tabs@2
+    label1: Original
+    label10: Signal 10
+    label2: After Operation
+    label3: Signal 3
+    label4: Signal 4
+    label5: Signal 5
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: postpython
+    nconnections: '1'
+    size: numPoints
+    srate: samp_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: '1'
+    ymin: '-1'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1072, 1560.0]
+    rotation: 0
+    state: enabled
+
+connections:
+- [analog_sig_source_x_0_0_0_0_0_0_0, '0', epy_block_0_0, '0']
+- [analog_sig_source_x_0_0_0_0_0_0_0, '0', qtgui_time_sink_x_0_0_0_0_1_0_0_0_0_0_0_0,
+  '0']
+- [blocks_null_source_0, '0', blocks_throttle_1, '0']
+- [blocks_selector_0, '0', blocks_file_sink_0, '0']
+- [blocks_selector_0, '1', blocks_null_sink_0_1, '0']
+- [blocks_selector_0_0, '0', blocks_file_sink_0_0, '0']
+- [blocks_selector_0_0, '1', blocks_null_sink_0_1_0, '0']
+- [blocks_throttle_0, '0', blocks_selector_0, '0']
+- [blocks_throttle_0_0, '0', blocks_selector_0_0, '0']
+- [blocks_throttle_1, '0', blocks_null_sink_0, '0']
+- [blocks_vector_source_x_0, '0', epy_block_0_0, '1']
+- [epy_block_0, '0', blocks_throttle_0, '0']
+- [epy_block_0, clear_input, qtgui_edit_box_msg_0_0_0, val]
+- [epy_block_0_0, '0', qtgui_time_sink_x_0_0_0_0_1_0_0_1_0_0_0, '0']
+- [epy_block_0_0, pmt_msg_out, qtgui_edit_box_msg_0, val]
+- [epy_block_0_0_0, '0', blocks_throttle_0_0, '0']
+- [epy_block_0_0_0, clear_input, qtgui_edit_box_msg_0_0_0_0_0, val]
+- [epy_block_0_0_0, clear_input, qtgui_edit_box_msg_0_0_0_0_0_0_0, val]
+- [epy_block_0_0_0, pmt_msg_out, qtgui_edit_box_msg_0_0_0_0_0_0, val]
+- [qtgui_edit_box_msg_0_0_0, msg, epy_block_0, msg_in]
+- [qtgui_edit_box_msg_0_0_0_0_0, msg, epy_block_0_0_0, msg_in]
+
+metadata:
+  file_format: 1
